@@ -1,0 +1,57 @@
+.header {
+  background-color: #fff;
+  padding: 0.4rem;
+  overflow: hidden;
+  height: 3.2rem;
+  border-bottom: 1px solid #ccc;
+  z-index: 99;
+  animation: noFix 0.6s linear;
+}
+
+.is_fixed {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  box-shadow: 0 3px 5px #999;
+  animation: fix 0.6s linear;
+}
+
+@keyframes noFix {
+  from {
+    height: 0;
+  }
+  to {
+    height: 3.2rem;
+  }
+}
+@keyframes fix {
+  from {
+    height: 0;
+  }
+  to {
+    height: 3.2rem;
+  }
+}
+
+.header-logo {
+  color: aqua;
+  font-size: 1.4rem;
+  text-align: left;
+}
+
+.header-txt {
+  font-size: 0.8rem;
+  color: #999;
+  display: inline-block;
+  padding-left: 0.3rem;
+}
+
+.ant-menu {
+  line-height: 3rem;
+}
+
+.ant-menu-item {
+  font-size: 0.9rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}

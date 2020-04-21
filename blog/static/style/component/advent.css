@@ -1,0 +1,9 @@
+.ad-div{
+    margin-top: .5rem;
+}
+.ad-div div{
+    border-radius: .4rem;
+    margin-bottom: .3rem;
+    box-shadow: .2rem .1rem .2rem .2rem;
+    overflow: hidden;
+}
