@@ -10,15 +10,23 @@ import Author from "./../component/Author";
 import Advent from "./../component/Advent";
 import Footer from "./../component/Footer";
 import "../static/style/pages/detail.css";
-import MarkNav from "markdown-navbar";
 import "markdown-navbar/dist/navbar.css";
 import axios from "axios";
 import marked from "marked";
 import hljs from "highlight.js";
 import "highlight.js/styles/monokai-sublime.css";
+import Tocify from "../component/tocify.tsx";
+import servicePath from "./../config/api";
 
 const Detail = (props) => {
+  const tocify = new Tocify();
   const renderer = new marked.Renderer();
+
+  renderer.heading = function (text, level) {
+    const anchor = tocify.add(text, level);
+    return `<a id="${anchor}" href="#${anchor}"class="anchor-fix"<h${level}></a>`;
+  };
+
   marked.setOptions({
     renderer: renderer,
     gfm: true, // 跟GitHub一样
@@ -27,7 +35,7 @@ const Detail = (props) => {
     tables: true,
     breaks: false,
     smartLists: true,
-    smartypants:true,
+    smartypants: true,
     highlight: function (code) {
       return hljs.highlightAuto(code).value;
     },
@@ -54,22 +62,22 @@ const Detail = (props) => {
               </Breadcrumb>
             </div>
             <div>
-              <div className="detailed-title">react实战博客</div>
+              <div className="detailed-title">{props.title}</div>
               <div className="list-icon center">
                 <span>
-                  <CalendarOutlined /> 2020-04-21
+                  <CalendarOutlined /> {props.createTime}
                 </span>
                 <span>
-                  <MenuUnfoldOutlined /> react
+                  <MenuUnfoldOutlined /> {props.typeName}
                 </span>
                 <span>
-                  <FireOutlined /> 100人
+                  <FireOutlined /> {props.view_count}
                 </span>
               </div>
-              <div className="detailed-content"
-                dangerouslySetInnerHTML={{__html:html}}
-              >
-              </div>
+              <div
+                className="detailed-content"
+                dangerouslySetInnerHTML={{ __html: html }}
+              ></div>
             </div>
           </div>
         </Col>
@@ -79,7 +87,7 @@ const Detail = (props) => {
           <Affix offsetTop={50}>
             <div className="detailed-nav comm-box">
               <div className="nav-title">文章目录</div>
-              <MarkNav className="article-menu" source={html} ordered={false} />
+              {tocify && tocify.render()}
             </div>
           </Affix>
         </Col>
@@ -94,10 +102,8 @@ Detail.getInitialProps = async (context) => {
   let id = context.query.id;
   id;
   return new Promise((resolve, reject) => {
-    axios("http://127.0.0.1:7001/blog/getArticleById/" + id)
+    axios(servicePath.getArticleById + id)
       .then((res) => {
-        console.log(res.data.data);
-        console.log("res.data");
         resolve(res.data.data[0]);
       })
       .catch((err) => {

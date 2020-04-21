@@ -6,6 +6,8 @@ import {
   FileMarkdownOutlined,
   SmileOutlined,
 } from "@ant-design/icons";
+import Router from "next/router";
+import Link from "next/link";
 
 const Header = () => {
   const [isFixed, setFixed] = useState(false);
@@ -38,16 +40,28 @@ const Header = () => {
         <Col xs={0} sm={0} md={14} lg={8} xl={6}>
           <Menu mode="horizontal">
             <Menu.Item key="home">
-              <HomeOutlined />
-              首页
+              <Link href={{ pathname: "index" }}>
+                <a>
+                  <HomeOutlined />
+                  首页
+                </a>
+              </Link>
             </Menu.Item>
             <Menu.Item key="article">
-              <FileMarkdownOutlined />
-              文章
+              <Link href={{ pathname: "" }}>
+                <a>
+                  <FileMarkdownOutlined />
+                  文章
+                </a>
+              </Link>
             </Menu.Item>
             <Menu.Item key="life">
-              <SmileOutlined />
-              生活
+              <Link href={{ pathname: "list" }}>
+                <a>
+                  <SmileOutlined />
+                  生活
+                </a>
+              </Link>
             </Menu.Item>
           </Menu>
         </Col>

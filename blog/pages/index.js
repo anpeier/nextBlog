@@ -13,6 +13,7 @@ import {
   FireOutlined,
 } from "@ant-design/icons";
 import "../static/style/pages/index.css";
+import servicePath from "./../config/api";
 
 const Home = (list) => {
   const [myList, setMyList] = useState(list.data);
@@ -64,14 +65,11 @@ const Home = (list) => {
 
 Home.getInitialProps = async () => {
   return new Promise((resolve, reject) => {
-    axios("http://127.0.0.1:7001/blog/getArticleList")
+    axios(servicePath.getArticleList)
       .then((res) => {
-        console.log(res.data);
-        console.log("res");
         resolve(res.data);
       })
       .catch((err) => {
-        console.log(err);
         reject(err);
       });
   });
