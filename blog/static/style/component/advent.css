@@ -1,9 +1,10 @@
-.ad-div{
-    margin-top: .5rem;
+.ad-div {
+  margin-top: 0.5rem;
 }
-.ad-div div{
-    border-radius: .4rem;
-    margin-bottom: .3rem;
-    box-shadow: .2rem .1rem .2rem .2rem;
-    overflow: hidden;
+.ad-div div {
+  margin-bottom: 0.3rem;
+  box-shadow: 0.2rem 0.1rem 0.2rem 0.2rem;
+  overflow: hidden;
+  margin-left: 0.5rem;
+  border-radius: 0.3rem;
 }
