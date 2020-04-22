@@ -69,7 +69,7 @@ const MyList = (list) => {
 
                 <div className="list-icon">
                   <span>
-                    <CalendarOutlined /> {item.createTime}
+                    <CalendarOutlined /> {item.updateTime}
                   </span>
                   <span>
                     <MenuUnfoldOutlined /> {item.category}

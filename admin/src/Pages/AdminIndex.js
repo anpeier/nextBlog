@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Route } from "react-router-dom";
-import { Layout, Menu, Breadcrumb, Avatar } from "antd";
+import { Layout, Menu, Breadcrumb } from "antd";
 import {
   DesktopOutlined,
   PieChartOutlined,
@@ -27,14 +27,10 @@ function AdminIndex() {
         <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
           <Menu.Item key="1">
             <PieChartOutlined />
-            <span>工作台</span>
-          </Menu.Item>
-          <Menu.Item key="2">
-            <DesktopOutlined />
             <span>添加文章</span>
           </Menu.Item>
           <SubMenu
-            key="sub1"
+            key="2"
             title={
               <span>
                 <UserOutlined />
@@ -52,14 +48,14 @@ function AdminIndex() {
         <Content style={{ margin: "0 16px" }}>
           <Breadcrumb style={{ margin: "16px 0" }}>
             <Breadcrumb.Item>后台管理系统</Breadcrumb.Item>
-            <Breadcrumb.Item>工作台</Breadcrumb.Item>
+            <Breadcrumb.Item>添加文章</Breadcrumb.Item>
           </Breadcrumb>
           <div
             className="site-layout-background"
             style={{ padding: 24, minHeight: 360 }}
           >
             <div>
-              <Route path="/index/" exact component={AddArticle} />
+              <Route path="/" exact component={AddArticle} />
             </div>
           </div>
         </Content>

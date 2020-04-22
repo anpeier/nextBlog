@@ -11,7 +11,7 @@ class HomeController extends Controller {
       "SELECT article.id as id," +
       "article.title as title," +
       "article.introduce as introduce," +
-      "DATE_FORMAT(article.createTime,'%Y-%m-%d %H:%i:%s') as createTime," +
+      "DATE_FORMAT(article.updateTime,'%Y-%m-%d %H:%i:%s') as updateTime," +
       "type.typeName as typeName," +
       "category.category_name as category," +
       "article.view_count as view_count " +
@@ -29,7 +29,7 @@ class HomeController extends Controller {
       "article.title as title," +
       "article.introduce as introduce," +
       "article.article_content as content," +
-      "DATE_FORMAT(article.createTime,'%Y-%m-%d %H:%i:%s') as createTime," +
+      "DATE_FORMAT(article.updateTime,'%Y-%m-%d %H:%i:%s') as updateTime," +
       "type.typeName as typeName," +
       "type.id as typeId," +
       "category.category_name as category," +
@@ -56,7 +56,7 @@ class HomeController extends Controller {
       "SELECT article.id as id," +
       "article.title as title," +
       "article.introduce as introduce," +
-      "DATE_FORMAT(article.createTime,'%Y-%m-%d %H:%i:%s') as createTime," +
+      "DATE_FORMAT(article.updateTime,'%Y-%m-%d %H:%i:%s') as updateTime," +
       "type.typeName as typeName," +
       "category.category_name as category," +
       "article.view_count as view_count " +

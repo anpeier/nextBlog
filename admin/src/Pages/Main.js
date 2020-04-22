@@ -7,7 +7,7 @@ export default function Main() {
   return (
     <Router>
       <Route path="/login" exac component={Login}></Route>
-      <Route path="/index" exac component={Index}></Route>
+      <Route path="/" exac component={Index}></Route>
     </Router>
   );
 }

@@ -2,6 +2,11 @@
   font-size: 16px !important;
   max-height: 745px;
 }
+
+.select-type{
+  width: 100%;
+}
+
 .show-html {
   padding: 10px;
   border: 1px solid #ddd;
@@ -10,6 +15,8 @@
   height: 745px;
   background-color: #f0f0f0;
   overflow: auto;
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
 .show-html h1 {
@@ -51,6 +58,8 @@
   border: 1px solid #ddd;
   border-radius: 5px;
   font-size: 16px;
+  word-wrap: break-word;
+  word-break: break-all;
 
   background-color: #f0f0f0;
 }
@@ -91,4 +100,7 @@
 }
 .date-select {
   margin-top: 10px;
+}
+.date-pick {
+  width: 100%;
 }

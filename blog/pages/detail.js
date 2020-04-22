@@ -65,7 +65,7 @@ const Detail = (props) => {
               <div className="detailed-title">{props.title}</div>
               <div className="list-icon center">
                 <span>
-                  <CalendarOutlined /> {props.createTime}
+                  <CalendarOutlined /> {props.updateTime}
                 </span>
                 <span>
                   <MenuUnfoldOutlined /> {props.category}

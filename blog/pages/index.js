@@ -57,7 +57,7 @@ const Home = (list) => {
                 </div>
                 <div className="list-icon">
                   <span>
-                    <CalendarOutlined /> {item.createTime}
+                    <CalendarOutlined /> {item.updateTime}
                   </span>
                   <span>
                     <MenuUnfoldOutlined /> {item.category}
@@ -88,6 +88,7 @@ Home.getInitialProps = async () => {
   return new Promise((resolve, reject) => {
     axios(servicePath.getArticleList)
       .then((res) => {
+        console.log(res.data)
         resolve(res.data);
       })
       .catch((err) => {
