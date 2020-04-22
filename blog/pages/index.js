@@ -14,9 +14,27 @@ import {
 } from "@ant-design/icons";
 import "../static/style/pages/index.css";
 import servicePath from "./../config/api";
+import marked from "marked";
+import hljs from "highlight.js";
+import "highlight.js/styles/monokai-sublime.css";
 
 const Home = (list) => {
   const [myList, setMyList] = useState(list.data);
+
+  const renderer = new marked.Renderer();
+  marked.setOptions({
+    renderer: renderer,
+    gfm: true, // 跟GitHub一样
+    pedantic: false, // 容错
+    sanitize: false,
+    tables: true,
+    breaks: false,
+    smartLists: true,
+    smartypants: true,
+    highlight: function (code) {
+      return hljs.highlightAuto(code).value;
+    },
+  });
 
   return (
     <div className="container">
@@ -42,13 +60,16 @@ const Home = (list) => {
                     <CalendarOutlined /> {item.createTime}
                   </span>
                   <span>
-                    <MenuUnfoldOutlined /> {item.typeName}
+                    <MenuUnfoldOutlined /> {item.category}
                   </span>
                   <span>
                     <FireOutlined style={{ color: "red" }} /> {item.view_count}
                   </span>
                 </div>
-                <div className="list-context">{item.introduce}</div>
+                <div
+                  className="list-context"
+                  dangerouslySetInnerHTML={{ __html: marked(item.introduce) }}
+                ></div>
               </List.Item>
             )}
           />

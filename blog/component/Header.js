@@ -48,7 +48,7 @@ const Header = () => {
               </Link>
             </Menu.Item>
             <Menu.Item key="article">
-              <Link href={{ pathname: "" }}>
+              <Link href={{ pathname: "list", query: { id: 1 } }}>
                 <a>
                   <FileMarkdownOutlined />
                   文章
@@ -56,7 +56,7 @@ const Header = () => {
               </Link>
             </Menu.Item>
             <Menu.Item key="life">
-              <Link href={{ pathname: "list" }}>
+              <Link href={{ pathname: "/" }}>
                 <a>
                   <SmileOutlined />
                   生活

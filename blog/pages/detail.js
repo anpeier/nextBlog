@@ -58,7 +58,7 @@ const Detail = (props) => {
                 <Breadcrumb.Item>
                   <a href="/list">文章列表</a>
                 </Breadcrumb.Item>
-                <Breadcrumb.Item>xx</Breadcrumb.Item>
+                <Breadcrumb.Item>{props.title}</Breadcrumb.Item>
               </Breadcrumb>
             </div>
             <div>
@@ -68,7 +68,7 @@ const Detail = (props) => {
                   <CalendarOutlined /> {props.createTime}
                 </span>
                 <span>
-                  <MenuUnfoldOutlined /> {props.typeName}
+                  <MenuUnfoldOutlined /> {props.category}
                 </span>
                 <span>
                   <FireOutlined /> {props.view_count}
