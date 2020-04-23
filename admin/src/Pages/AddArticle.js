@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import marked from "marked";
 import "./../static/css/addArticle.css";
-import { Row, Col, Input, Select, Button, message } from "antd";
+import { Row, Col, Input, Select, Button, message, Modal } from "antd";
 import axios from "axios";
 import servicePath from "./../config/api";
 const { Option } = Select;
@@ -19,14 +19,22 @@ function AddArticle(props) {
   const [categoryInfo, setCategoryInfo] = useState([]); // 文章分类
   const [seletctedCategory, setCategory] = useState("请选择分类"); //选择的文章分类
   const [allCategory, setAllCategory] = useState([]); // 所有分类
+  const [showModal, setShowModal] = useState(false); // 添加类别
+  const [type, setType] = useState(2); // 1: 添加栏目 2: 添加分类
+  const [typeOrCategory, setTypeOrCategory] = useState("");
+
   useEffect(() => {
     getTypeInfo();
   }, []);
 
+  const handleOk = () => {
+    console.log(type);
+  };
+
   marked.setOptions({
     renderer: new marked.Renderer(),
-    gfm: true, // 跟GitHub一样
-    pedantic: false, // 容错
+    gfm: true,
+    pedantic: false,
     sanitize: false,
     tables: true,
     breaks: false,
@@ -100,14 +108,28 @@ function AddArticle(props) {
         method: "post",
         url: servicePath.addArticle,
         data,
-        withCredentials:true
+        withCredentials: true,
       }).then((res) => {
         console.log(res);
         setArticleId(res.data.insertId);
         if (res.data.insertSuccess) {
-          message.info("保存成功");
+          message.info("文章添加成功");
         } else {
-          message.error("保存失败");
+          message.error("文章添加失败");
+        }
+      });
+    } else {
+      data.id = articleId;
+      axios({
+        method: "put",
+        url: servicePath.updateArticle,
+        data,
+        withCredentials: true,
+      }).then((res) => {
+        if (res.data.updateSuccess) {
+          message.info("文章修改成功");
+        } else {
+          message.error("文章修改失败");
         }
       });
     }
@@ -203,9 +225,64 @@ function AddArticle(props) {
                 dangerouslySetInnerHTML={{ __html: introducehtml }}
               ></div>
             </Col>
+            <Col span={12}>
+              <Button
+                className="addType"
+                onClick={() => {
+                  setShowModal(true);
+                  setType(1);
+                }}
+              >
+                添加栏目
+              </Button>
+            </Col>
+            <Col span={12}>
+              <Button
+                className="addType"
+                onClick={() => {
+                  setShowModal(true);
+                  setType(2);
+                }}
+              >
+                添加分类
+              </Button>
+            </Col>
           </Row>
         </Col>
       </Row>
+
+      <Modal
+        title={type == 1 ? "添加栏目" : "添加分类"}
+        visible={showModal}
+        onOk={handleOk}
+        onCancel={() => setShowModal(false)}
+      >
+        {type == 2 && (
+          <Select
+            onChange={changeType}
+            className="select-type"
+            defaultValue={selectedType}
+            size="large"
+            value={selectedType}
+          >
+            {typeInfo.map((item, index) => {
+              return (
+                <Option key={index} value={item.id}>
+                  {item.typeName}
+                </Option>
+              );
+            })}
+          </Select>
+        )}
+
+        <Input
+          size="large"
+          placeholder={type == 1 ? "请输入栏目名称" : "请输入分类名称"}
+          onChange={(e) => {
+            setTypeOrCategory(e.target.value);
+          }}
+        />
+      </Modal>
     </div>
   );
 }

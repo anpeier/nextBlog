@@ -36,16 +36,39 @@ class MainController extends Controller {
 
   async addArticle() {
     let tmpArticle = this.ctx.request.body;
-    console.log('tmpArticle')
-    console.log(tmpArticle)
     const result = await this.app.mysql.insert("article", tmpArticle);
-    console.log(result);
     const insertSuccess = result.affectedRows == 1;
     const insertId = result.insertId;
     this.ctx.body = {
       insertSuccess,
       insertId,
     };
+  }
+
+  async updateArticle() {
+    let tmpArticle = this.ctx.request.body;
+    console.log(tmpArticle);
+    const result = await this.app.mysql.update("article", tmpArticle);
+    const updateSuccess = result.affectedRows == 1;
+    this.ctx.body = {
+      updateSuccess,
+    };
+  }
+
+  async getArticleList() {
+    let sql =
+      "SELECT article.id as id," +
+      "article.title as title," +
+      "article.introduce as introduce," +
+      "DATE_FORMAT(article.updateTime,'%Y-%m-%d %H:%i:%s') as updateTime," +
+      "type.typeName as typeName," +
+      "category.category_name as category," +
+      "article.view_count as view_count " +
+      "FROM article LEFT JOIN type ON article.type_id = type.id " +
+      "LEFT JOIN category ON article.category_id = category.id " +
+      "ORDER BY article.id DESC";
+    const results = await this.app.mysql.query(sql);
+    this.ctx.body = { data: results };
   }
 }
 
