@@ -33,6 +33,7 @@ class HomeController extends Controller {
       "type.typeName as typeName," +
       "type.id as typeId," +
       "category.category_name as category," +
+      "category.id as categoryId," +
       "article.view_count as view_count " +
       "FROM article LEFT JOIN type ON article.type_id = type.id " +
       "LEFT JOIN category ON article.category_id = category.id " +

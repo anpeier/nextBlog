@@ -70,6 +70,55 @@ class MainController extends Controller {
     const results = await this.app.mysql.query(sql);
     this.ctx.body = { data: results };
   }
+
+  async addType() {
+    let typeData = this.ctx.request.body;
+    const result = await this.app.mysql.insert("type", typeData);
+    const insertSuccess = result.affectedRows == 1;
+    this.ctx.body = {
+      insertSuccess,
+    };
+  }
+
+  async addCategory() {
+    let categoryData = this.ctx.request.body;
+    const result = await this.app.mysql.insert("category", categoryData);
+    const insertSuccess = result.affectedRows == 1;
+    const insertId = result.insertId;
+    this.ctx.body = {
+      insertSuccess,
+      insertId,
+    };
+  }
+
+  async delArticle() {
+    let id = this.ctx.params.id;
+    const res = await this.app.mysql.delete("article", { id });
+    this.ctx.body = {
+      data: res,
+    };
+  }
+
+  async getArticleById() {
+    let id = this.ctx.params.id;
+    let sql =
+      "SELECT article.id as id," +
+      "article.title as title," +
+      "article.introduce as introduce," +
+      "article.article_content as content," +
+      "DATE_FORMAT(article.updateTime,'%Y-%m-%d') as updateTime," +
+      "type.typeName as typeName," +
+      "type.id as typeId," +
+      "category.category_name as category," +
+      "category.id as categoryId," +
+      "article.view_count as view_count " +
+      "FROM article LEFT JOIN type ON article.type_id = type.id " +
+      "LEFT JOIN category ON article.category_id = category.id " +
+      "WHERE article.id=" +
+      id;
+    const result = await this.app.mysql.query(sql);
+    this.ctx.body = { data: result };
+  }
 }
 
 module.exports = MainController;

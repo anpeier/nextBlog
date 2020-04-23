@@ -18,8 +18,8 @@ function AdminIndex(props) {
   const handleClickArticle = (e) => {
     if (e.key == "addArticle") {
       props.history.push("/add");
-    } else if(e.key == "ArticleList") {
-      props.history.push('/list')
+    } else if (e.key == "ArticleList") {
+      props.history.push("/list");
     }
   };
 
@@ -43,7 +43,9 @@ function AdminIndex(props) {
               </span>
             }
           >
-            <Menu.Item onClick={handleClickArticle} key="ArticleList">文章列表</Menu.Item>
+            <Menu.Item onClick={handleClickArticle} key="ArticleList">
+              文章列表
+            </Menu.Item>
           </SubMenu>
         </Menu>
       </Sider>
@@ -60,6 +62,7 @@ function AdminIndex(props) {
             <div>
               <Route path="/" exact component={AddArticle} />
               <Route path="/add/" exact component={AddArticle} />
+              <Route path="/add/:id" exact component={AddArticle} />
               <Route path="/list/" exact component={ArticleList} />
             </div>
           </div>

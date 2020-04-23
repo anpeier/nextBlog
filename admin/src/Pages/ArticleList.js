@@ -21,6 +21,31 @@ function ArticleList(props) {
     });
   };
 
+  const delArticle = (id) => {
+    console.log(id);
+    confirm({
+      title: "删除文章",
+      content: "文章一旦删除，无法恢复，请确认是否删除",
+      onCancel() {
+        message.info("删除取消");
+      },
+      onOk() {
+        axios({
+          method: "delete",
+          url: servicePath.delArticle + id,
+          withCredentials: true,
+        }).then((res) => {
+          message.info("删除成功");
+          getList();
+        });
+      },
+    });
+  };
+
+  const updateArticle = (id) => {
+    props.history.push("/add/" + id);
+  };
+
   return (
     <div>
       <List
@@ -57,8 +82,8 @@ function ArticleList(props) {
               <Col span={5}>{item.updateTime}</Col>
               <Col span={3}>{item.view_count}</Col>
               <Col span={4}>
-                <Button type="primary">修改</Button>
-                <Button>删除</Button>
+                <Button type="primary" onClick={() => updateArticle(item.id)}>修改</Button>
+                <Button onClick={() => delArticle(item.id)}>删除</Button>
               </Col>
             </Row>
           </List.Item>

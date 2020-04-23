@@ -8,6 +8,18 @@ module.exports = (app) => {
     controller.admin.main.getTypeInfo
   );
   router.post("/admin/addArticle", adminAuth, controller.admin.main.addArticle);
+  router.post("/admin/addType", adminAuth, controller.admin.main.addType);
+  router.get("/admin/getArticleById/:id", adminAuth, controller.admin.main.getArticleById);
+  router.post(
+    "/admin/addCategory",
+    adminAuth,
+    controller.admin.main.addCategory
+  );
+  router.delete(
+    "/admin/delArticle/:id",
+    adminAuth,
+    controller.admin.main.delArticle
+  );
   router.put(
     "/admin/updateArticle",
     adminAuth,
