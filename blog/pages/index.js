@@ -39,7 +39,7 @@ const Home = (list) => {
   return (
     <div className="container">
       <Head>
-        <title>Home</title>
+        <title>anpeier的博客</title>
       </Head>
       <Header />
       <Row className="comm-main" type="flex" justify="center">

@@ -33,6 +33,20 @@ class MainController extends Controller {
       },
     };
   }
+
+  async addArticle() {
+    let tmpArticle = this.ctx.request.body;
+    console.log('tmpArticle')
+    console.log(tmpArticle)
+    const result = await this.app.mysql.insert("article", tmpArticle);
+    console.log(result);
+    const insertSuccess = result.affectedRows == 1;
+    const insertId = result.insertId;
+    this.ctx.body = {
+      insertSuccess,
+      insertId,
+    };
+  }
 }
 
 module.exports = MainController;

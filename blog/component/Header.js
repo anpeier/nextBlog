@@ -6,7 +6,6 @@ import {
   FileMarkdownOutlined,
   SmileOutlined,
 } from "@ant-design/icons";
-import Router from "next/router";
 import Link from "next/link";
 
 const Header = () => {
@@ -56,7 +55,7 @@ const Header = () => {
               </Link>
             </Menu.Item>
             <Menu.Item key="life">
-              <Link href={{ pathname: "/" }}>
+              <Link href={{ pathname: "list",query: { id: 2 } }}>
                 <a>
                   <SmileOutlined />
                   生活

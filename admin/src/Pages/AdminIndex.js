@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Route } from "react-router-dom";
 import { Layout, Menu, Breadcrumb } from "antd";
 import {
-  DesktopOutlined,
   PieChartOutlined,
   UserOutlined,
 } from "@ant-design/icons";

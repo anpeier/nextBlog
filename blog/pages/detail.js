@@ -44,7 +44,7 @@ const Detail = (props) => {
   return (
     <div className="container">
       <Head>
-        <title>detail</title>
+        <title>博客详情</title>
       </Head>
       <Header />
       <Row className="comm-main" type="flex" justify="center">
@@ -56,7 +56,7 @@ const Detail = (props) => {
                   <a href="/">首页</a>
                 </Breadcrumb.Item>
                 <Breadcrumb.Item>
-                  <a href="/list">文章列表</a>
+                  <a href={`/list?id=${props.typeId}`}>文章列表</a>
                 </Breadcrumb.Item>
                 <Breadcrumb.Item>{props.title}</Breadcrumb.Item>
               </Breadcrumb>

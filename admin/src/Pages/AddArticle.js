@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import marked from "marked";
 import "./../static/css/addArticle.css";
-import { Row, Col, Input, Select, Button, DatePicker } from "antd";
+import { Row, Col, Input, Select, Button, message } from "antd";
 import axios from "axios";
 import servicePath from "./../config/api";
-import moment from "moment";
 const { Option } = Select;
 const { TextArea } = Input;
 
@@ -15,8 +14,6 @@ function AddArticle(props) {
   const [markdownContent, setMarkdownContent] = useState("预览内容"); //html内容
   const [introducemd, setIntroducemd] = useState(); //简介的markdown内容
   const [introducehtml, setIntroducehtml] = useState("等待编辑"); //简介的html内容
-  const [showDate, setShowDate] = useState(); //发布日期
-  const [updateDate, setUpdateDate] = useState(); //修改日志的日期
   const [typeInfo, setTypeInfo] = useState([]); // 文章栏目
   const [selectedType, setSelectType] = useState("请选择栏目"); //选择的文章栏目
   const [categoryInfo, setCategoryInfo] = useState([]); // 文章分类
@@ -70,22 +67,50 @@ function AddArticle(props) {
     setSelectType(typeId);
     let arr = allCategory.filter((item) => item.type_id == typeId);
     setCategoryInfo(arr);
-    setCategory(arr[0].id)
+    setCategory(arr[0].id);
   };
 
   const changeCategory = async (categoryId) => {
     setCategory(categoryId);
   };
 
-  const changeDate = (e) => {
-    console.log(e);
-  };
+  const saveArticle = () => {
+    if (selectedType == "请选择栏目") {
+      message.error("请选择文章栏目");
+      return;
+    } else if (seletctedCategory == "请选择分类") {
+      message.error("请选择文章分类");
+      return;
+    } else if (!articleTitle) {
+      message.error("请输入文章标题");
+    } else if (!articleContent) {
+      message.error("请输入文章内容");
+    } else if (!introducemd) {
+      message.error("请输入文章简介");
+    }
+    let data = {};
+    data.type_id = selectedType;
+    data.title = articleTitle;
+    data.article_content = articleContent;
+    data.introduce = introducemd;
+    data.category_id = seletctedCategory;
 
-  const test = () => {
-    console.log(
-      "seletctedCategory" + seletctedCategory + "typeInfo" + selectedType
-    );
-    console.log(showDate);
+    if (articleId == 0) {
+      axios({
+        method: "post",
+        url: servicePath.addArticle,
+        data,
+        withCredentials:true
+      }).then((res) => {
+        console.log(res);
+        setArticleId(res.data.insertId);
+        if (res.data.insertSuccess) {
+          message.info("保存成功");
+        } else {
+          message.error("保存失败");
+        }
+      });
+    }
   };
 
   return (
@@ -94,7 +119,14 @@ function AddArticle(props) {
         <Col span={18}>
           <Row gutter={10}>
             <Col span={16}>
-              <Input value={articleTitle} onChange={(e)=>{setArticleTitle(e.target.value)}} placeholder="博客标题" size="large" />
+              <Input
+                value={articleTitle}
+                onChange={(e) => {
+                  setArticleTitle(e.target.value);
+                }}
+                placeholder="博客标题"
+                size="large"
+              />
             </Col>
             <Col span={4}>
               <Select
@@ -153,7 +185,7 @@ function AddArticle(props) {
           <Row>
             <Col span={24}>
               <Button size="large">暂存文章</Button>
-              <Button onClick={test} size="large" type="primary">
+              <Button onClick={saveArticle} size="large" type="primary">
                 发布文章
               </Button>
             </Col>
@@ -170,18 +202,6 @@ function AddArticle(props) {
                 className="introduce-html"
                 dangerouslySetInnerHTML={{ __html: introducehtml }}
               ></div>
-            </Col>
-            <Col span={24}>
-              <div className="date-select">
-                <DatePicker
-                  className="date-pick"
-                  placeholder="请选择发布日期"
-                  size="large"
-                  onChange={(date) =>
-                    setShowDate(moment(date).format("YYYY-MM-DD HH:mm:ss"))
-                  }
-                />
-              </div>
             </Col>
           </Row>
         </Col>
