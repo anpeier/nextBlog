@@ -98,7 +98,6 @@ const Detail = (props) => {
 };
 
 Detail.getInitialProps = async (context) => {
-  console.log(context.query.id);
   let id = context.query.id;
   id;
   return new Promise((resolve, reject) => {

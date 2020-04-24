@@ -10,6 +10,9 @@ let servicePath = {
   addCategory: baseUrl + "addCategory", // 添加类别
   delArticle: baseUrl + "delArticle/", // 删除文章
   getArticleById: baseUrl + "getArticleById/", // 通过id获取文章
+  upload: baseUrl + "upload", // 上传图片
+  getMessageList: baseUrl + "getMessageList", // 获取留言列表
+  delMessage: baseUrl + "delMessage/", // 删除文章
 };
 
 export default servicePath;

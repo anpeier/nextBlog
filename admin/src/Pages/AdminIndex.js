@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import { Route } from "react-router-dom";
 import { Layout, Menu, Breadcrumb } from "antd";
-import { PieChartOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  PieChartOutlined,
+  UserOutlined,
+  CommentOutlined,
+} from "@ant-design/icons";
 import "./../static/css/index.css";
 import AddArticle from "./AddArticle";
 import ArticleList from "./ArticleList";
+import MessageList from "./MessageList";
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
 function AdminIndex(props) {
@@ -16,10 +21,12 @@ function AdminIndex(props) {
   };
 
   const handleClickArticle = (e) => {
-    if (e.key == "addArticle") {
+    if (e.key === "addArticle") {
       props.history.push("/add");
-    } else if (e.key == "ArticleList") {
+    } else if (e.key === "ArticleList") {
       props.history.push("/list");
+    }else if(e.key === 'messageList'){
+      props.history.push("/messageList");
     }
   };
 
@@ -47,6 +54,10 @@ function AdminIndex(props) {
               文章列表
             </Menu.Item>
           </SubMenu>
+          <Menu.Item key="messageList" onClick={handleClickArticle}>
+            <CommentOutlined />
+            <span>留言管理</span>
+          </Menu.Item>
         </Menu>
       </Sider>
       <Layout className="site-layout">
@@ -64,6 +75,7 @@ function AdminIndex(props) {
               <Route path="/add/" exact component={AddArticle} />
               <Route path="/add/:id" exact component={AddArticle} />
               <Route path="/list/" exact component={ArticleList} />
+              <Route path="/messageList/" exact component={MessageList} />
             </div>
           </div>
         </Content>

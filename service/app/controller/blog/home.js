@@ -15,8 +15,9 @@ class HomeController extends Controller {
       "type.typeName as typeName," +
       "category.category_name as category," +
       "article.view_count as view_count " +
-      "FROM article LEFT JOIN type ON article.type_id = type.id "+
-      "LEFT JOIN category ON article.category_id = category.id";
+      "FROM article LEFT JOIN type ON article.type_id = type.id " +
+      "LEFT JOIN category ON article.category_id = category.id " +
+      "ORDER BY article.id DESC";
     const results = await this.app.mysql.query(sql);
     this.ctx.body = { data: results };
   }
@@ -24,6 +25,9 @@ class HomeController extends Controller {
   // 通过id获取文章
   async getArticleById() {
     let id = this.ctx.params.id;
+    let addCountSql =
+      "UPDATE article SET view_count = view_count+1 WHERE id=" + id;
+    await this.app.mysql.query(addCountSql);
     let sql =
       "SELECT article.id as id," +
       "article.title as title," +
@@ -39,7 +43,6 @@ class HomeController extends Controller {
       "LEFT JOIN category ON article.category_id = category.id " +
       "WHERE article.id=" +
       id;
-    console.log(sql);
     const result = await this.app.mysql.query(sql);
     this.ctx.body = { data: result };
   }

@@ -2,6 +2,8 @@
 
 "use strict";
 
+const path = require("path");
+
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
@@ -21,6 +23,11 @@ module.exports = (appInfo) => {
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
+  };
+
+  config.bodyParser = {
+    jsonLimit: "10mb",
+    formLimit: "10mb",
   };
 
   config.mysql = {
@@ -53,6 +60,10 @@ module.exports = (appInfo) => {
     // origin: "*",
     credentials: true,
     allowMethods: "GET,POST,HEAD,PUT,DELETE,OPTIONS,PATCH",
+  };
+
+  config.multipart = {
+    mode: "stream",
   };
 
   return {

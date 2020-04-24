@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./../static/css/addArticle.css";
-import { Row, Col, Input, Select, Button, message, Modal } from "antd";
+import { Row, Col, Input, Select, Button, message, Modal, Spin } from "antd";
 import axios from "axios";
 import servicePath from "./../config/api";
 import SimpleMDE from "react-simplemde-editor";
@@ -20,7 +20,7 @@ function AddArticle(props) {
   const [showModal, setShowModal] = useState(false); // 添加类别
   const [type, setType] = useState(2); // 1: 添加栏目 2: 添加分类
   const [typeOrCategory, setTypeOrCategory] = useState(""); // 分类或栏目名称
-
+  const [upLoadSpin, setUpLoadSpin] = useState(false); // 上传加载框
   useEffect(() => {
     getTypeInfo();
     let id = props.match.params.id;
@@ -124,7 +124,10 @@ function AddArticle(props) {
     if (selectedType === "请选择栏目") {
       message.error("请选择文章栏目");
       return;
-    } else if (seletctedCategory === "请选择分类") {
+    } else if (
+      seletctedCategory === "请选择分类" ||
+      seletctedCategory === "暂无分类"
+    ) {
       message.error("请选择文章分类");
       return;
     } else if (!articleTitle) {
@@ -190,121 +193,138 @@ function AddArticle(props) {
     });
   };
 
+  const imageUploadFunction = (data, onSuccess) => {
+    setUpLoadSpin(true);
+    const formDate = new FormData();
+    formDate.append("image", data);
+    axios
+      .post(servicePath.upload, formDate)
+      .then((res) => {
+        onSuccess(res.data.data);
+        setUpLoadSpin(false);
+        message.success("上传成功");
+      })
+      .catch((err) => {
+        message.error("上传失败，请重试");
+        setUpLoadSpin(false);
+      });
+  };
+
   return (
     <div>
-      <Row gutter={5}>
-        <Col span={18}>
-          <Row gutter={10}>
-            <Col span={16}>
-              <Input
-                value={articleTitle}
-                onChange={(e) => {
-                  setArticleTitle(e.target.value);
-                }}
-                placeholder="博客标题"
-                size="large"
-              />
-            </Col>
-            <Col span={4}>
-              <Select
-                onChange={changeType}
-                className="select-type"
-                defaultValue={selectedType}
-                size="large"
-                value={selectedType}
-              >
-                {typeInfo.map((item, index) => {
-                  return (
-                    <Option key={index} value={item.id}>
-                      {item.typeName}
-                    </Option>
-                  );
-                })}
-              </Select>
-            </Col>
-            <Col span={4}>
-              <Select
-                className="select-type"
-                defaultValue={seletctedCategory}
-                size="large"
-                onChange={changeCategory}
-                value={seletctedCategory}
-              >
-                {categoryInfo.map((item, index) => {
-                  return (
-                    <Option key={index} value={item.id}>
-                      {item.category_name}
-                    </Option>
-                  );
-                })}
-              </Select>
-            </Col>
-          </Row>
-          <br />
-          <Row gutter={10}>
-            <Col span={24}>
-              <SimpleMDE
-                value={articleContent}
-                className="markdown-content"
-                options={{
-                  uploadImage: true,
-                }}
-                onChange={changeContent}
-              />
-              ;
-            </Col>
-          </Row>
-        </Col>
-        <Col span={6}>
-          <Row>
-            <Col span={24}>
-              <Button size="large">暂存文章</Button>
-              <Button onClick={saveArticle} size="large" type="primary">
-                发布文章
-              </Button>
-            </Col>
-            <Col span={12}>
-              <Button
-                className="addType"
-                onClick={() => {
-                  setShowModal(true);
-                  setType(1);
-                }}
-              >
-                添加栏目
-              </Button>
-            </Col>
-            <Col span={12}>
-              <Button
-                className="addType"
-                onClick={() => {
-                  setShowModal(true);
-                  setType(2);
-                }}
-              >
-                添加分类
-              </Button>
-            </Col>
-            <Col span={24}>
-              <SimpleMDE
-                value={introducemd}
-                className="markdown-introduce"
-                onChange={changeIntroduce}
-                options={{
-                  hideIcons: [
-                    "image",
-                    "fullscreen",
-                    "unordered-list",
-                    "side-by-side",
-                    "guide",
-                  ],
-                }}
-              />
-              ;
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+      <Spin tip="上传中" size="large" spinning={upLoadSpin}>
+        <Row gutter={5}>
+          <Col span={18}>
+            <Row gutter={10}>
+              <Col span={16}>
+                <Input
+                  value={articleTitle}
+                  onChange={(e) => {
+                    setArticleTitle(e.target.value);
+                  }}
+                  placeholder="博客标题"
+                  size="large"
+                />
+              </Col>
+              <Col span={4}>
+                <Select
+                  onChange={changeType}
+                  className="select-type"
+                  defaultValue={selectedType}
+                  size="large"
+                  value={selectedType}
+                >
+                  {typeInfo.map((item, index) => {
+                    return (
+                      <Option key={index} value={item.id}>
+                        {item.typeName}
+                      </Option>
+                    );
+                  })}
+                </Select>
+              </Col>
+              <Col span={4}>
+                <Select
+                  className="select-type"
+                  defaultValue={seletctedCategory}
+                  size="large"
+                  onChange={changeCategory}
+                  value={seletctedCategory}
+                >
+                  {categoryInfo.map((item, index) => {
+                    return (
+                      <Option key={index} value={item.id}>
+                        {item.category_name}
+                      </Option>
+                    );
+                  })}
+                </Select>
+              </Col>
+            </Row>
+            <br />
+            <Row gutter={10}>
+              <Col span={24}>
+                <SimpleMDE
+                  value={articleContent}
+                  className="markdown-content"
+                  options={{
+                    uploadImage: true,
+                    imageUploadFunction,
+                  }}
+                  onChange={changeContent}
+                />
+                ;
+              </Col>
+            </Row>
+          </Col>
+          <Col span={6}>
+            <Row>
+              <Col span={24}>
+                <Button onClick={saveArticle} size="large" type="primary">
+                  发布文章
+                </Button>
+                <Button
+                  size="large"
+                  className="addType"
+                  onClick={() => {
+                    setShowModal(true);
+                    setType(1);
+                  }}
+                >
+                  添加栏目
+                </Button>
+                <Button
+                  size="large"
+                  className="addType"
+                  onClick={() => {
+                    setShowModal(true);
+                    setType(2);
+                  }}
+                >
+                  添加分类
+                </Button>
+              </Col>
+              <Col span={24}>
+                <SimpleMDE
+                  value={introducemd}
+                  className="markdown-introduce"
+                  onChange={changeIntroduce}
+                  options={{
+                    hideIcons: [
+                      "image",
+                      "fullscreen",
+                      "unordered-list",
+                      "side-by-side",
+                      "guide",
+                    ],
+                  }}
+                />
+                ;
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </Spin>
 
       <Modal
         title={type === 1 ? "添加栏目" : "添加分类"}

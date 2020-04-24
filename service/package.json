@@ -11,6 +11,7 @@
     "egg-cors": "^2.2.3",
     "egg-mysql": "^3.0.0",
     "egg-scripts": "^2.11.0",
+    "qiniu": "^7.3.0",
     "utility": "^1.16.3"
   },
   "devDependencies": {

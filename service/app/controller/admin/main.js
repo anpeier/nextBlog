@@ -119,6 +119,11 @@ class MainController extends Controller {
     const result = await this.app.mysql.query(sql);
     this.ctx.body = { data: result };
   }
+
+  async getMessageList() {
+    const results = await this.app.mysql.select("message");
+    this.ctx.body = { data: results };
+  }
 }
 
 module.exports = MainController;

@@ -9,7 +9,12 @@ module.exports = (app) => {
   );
   router.post("/admin/addArticle", adminAuth, controller.admin.main.addArticle);
   router.post("/admin/addType", adminAuth, controller.admin.main.addType);
-  router.get("/admin/getArticleById/:id", adminAuth, controller.admin.main.getArticleById);
+  router.get(
+    "/admin/getArticleById/:id",
+    adminAuth,
+    controller.admin.main.getArticleById
+  );
+  router.post("/admin/upload", controller.admin.upload.upload);
   router.post(
     "/admin/addCategory",
     adminAuth,
@@ -29,5 +34,11 @@ module.exports = (app) => {
     "/admin/getArticleList",
     adminAuth,
     controller.admin.main.getArticleList
+  );
+
+  router.get(
+    "/admin/getMessageList",
+    adminAuth,
+    controller.admin.main.getMessageList
   );
 };
