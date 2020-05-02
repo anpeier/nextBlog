@@ -1,11 +1,9 @@
 "use strict";
 
 const Controller = require("egg").Controller;
+const { html2Escape, escape2Html } = require("./../../../utils/index");
 
 class HomeController extends Controller {
-  async index() {
-    this.ctx.body = "api hi";
-  }
   async getArticleList() {
     let sql =
       "SELECT article.id as id," +
@@ -70,6 +68,35 @@ class HomeController extends Controller {
       id;
     const results = await this.app.mysql.query(sql);
     this.ctx.body = { data: results };
+  }
+
+  async addComment() {
+    let comment = this.ctx.request.body;
+    comment.nickname = html2Escape(comment.nickname);
+    comment.content = html2Escape(comment.content);
+    let result = await this.app.mysql.insert("comment", comment);
+    const insertSuccess = result.affectedRows == 1;
+    this.ctx.body = {
+      insertSuccess,
+    };
+  }
+
+  async getComment() {
+    let article_id = this.ctx.params.id;
+    let sql =
+      "SELECT * FROM comment WHERE article_id=" +
+      article_id +
+      " ORDER BY createTime ASC";
+    let data = await this.app.mysql.query(sql);
+    if (data.length) {
+      for (const item of data) {
+        item.nickname = escape2Html(item.nickname);
+        item.content = escape2Html(item.content);
+      }
+    }
+    this.ctx.body = {
+      data
+    }
   }
 }
 

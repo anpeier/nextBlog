@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./../static/style/component/header.css";
 import { Row, Col, Menu } from "antd";
 import {
@@ -55,7 +55,7 @@ const Header = () => {
               </Link>
             </Menu.Item>
             <Menu.Item key="life">
-              <Link href={{ pathname: "list",query: { id: 2 } }}>
+              <Link href={{ pathname: "list", query: { id: 2 } }}>
                 <a>
                   <SmileOutlined />
                   生活

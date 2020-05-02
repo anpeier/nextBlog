@@ -94,10 +94,16 @@ iframe {
 .article-menu .title-anchor {
   margin-top: 10px !important;
 }
-.detail-comment{
-  text-align: right;
+.comm-left{
+  position: relative;
+}
+.detail-comment {
+  position: absolute;
+  bottom: 1em;
+  right: 0;
   padding-right: 1em;
+  cursor: pointer;
 }
 .comment-span {
-  margin-left: .2em;
+  margin-left: 0.2em;
 }

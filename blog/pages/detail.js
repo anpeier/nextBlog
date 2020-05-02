@@ -6,7 +6,7 @@ import {
   CalendarOutlined,
   MenuUnfoldOutlined,
   FireOutlined,
-  CopyOutlined,
+  CopyFilled,
 } from "@ant-design/icons";
 import Author from "./../component/Author";
 import Advent from "./../component/Advent";
@@ -22,7 +22,7 @@ import servicePath from "./../config/api";
 import CommentBox from "./../component/Comment";
 
 const Detail = (props) => {
-  const [isShowCommentForm, setSsShowCommentForm] = useState(false); // 是否展示评论表单
+  const [isShowCommentForm, setIsShowCommentForm] = useState(false); // 是否展示评论表单
   const tocify = new Tocify();
   const renderer = new marked.Renderer();
 
@@ -82,12 +82,17 @@ const Detail = (props) => {
                 className="detailed-content"
                 dangerouslySetInnerHTML={{ __html: html }}
               ></div>
-              <div className="detail-comment">
-                <CopyOutlined />
-                <span className="comment-span">评论</span>
-              </div>
             </div>
           </div>
+          {!isShowCommentForm && (
+            <div
+              className="detail-comment"
+              onClick={() => setIsShowCommentForm(!isShowCommentForm)}
+            >
+              <CopyFilled />
+              <span className="comment-span">评论</span>
+            </div>
+          )}
         </Col>
         <Col className="comm-right" xs={0} sm={0} lg={5} xl={4}>
           <Author />
@@ -102,7 +107,11 @@ const Detail = (props) => {
       </Row>
       <Row type="flex" justify="center">
         <Col xs={24} sm={16} lg={18} xl={14}>
-          <CommentBox isShowCommentForm={isShowCommentForm} />
+          <CommentBox
+            onClick={() => setIsShowCommentForm(!isShowCommentForm)}
+            isShowCommentForm={isShowCommentForm}
+            article_id={props.id}
+          />
         </Col>
         <Col className="comm-right" xs={0} sm={0} lg={5} xl={4}></Col>
       </Row>
