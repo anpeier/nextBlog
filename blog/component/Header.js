@@ -16,7 +16,6 @@ const Header = () => {
       window.pageYOffset ||
       document.documentElement.scrollTop ||
       document.body.scrollTop;
-    console.log(clientHeight)
     if (clientHeight > 50) {
       setFixed(true);
     } else {

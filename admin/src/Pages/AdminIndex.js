@@ -34,7 +34,7 @@ function AdminIndex(props) {
     <Layout style={{ minHeight: "100vh" }}>
       <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
         <div className="logo">
-          <img src={require("./../static/images/img8.webp")} />
+          <img alt="头像" src={require("./../static/images/img8.webp")} />
         </div>
         <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
           <Menu.Item key="addArticle" onClick={handleClickArticle}>

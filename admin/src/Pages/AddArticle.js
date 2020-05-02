@@ -28,7 +28,7 @@ function AddArticle(props) {
       setArticleId(id);
       getArticleById(id);
     }
-  }, []);
+  }, [props.match.params.id]);
 
   const handleOk = () => {
     if (type === 1) {

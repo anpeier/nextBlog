@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Head from "next/head";
 import Header from "./../component/Header";
 import { Row, Col, Breadcrumb, Affix } from "antd";
@@ -5,6 +6,7 @@ import {
   CalendarOutlined,
   MenuUnfoldOutlined,
   FireOutlined,
+  CopyOutlined,
 } from "@ant-design/icons";
 import Author from "./../component/Author";
 import Advent from "./../component/Advent";
@@ -17,8 +19,10 @@ import hljs from "highlight.js";
 import "highlight.js/styles/monokai-sublime.css";
 import Tocify from "../component/tocify.tsx";
 import servicePath from "./../config/api";
+import CommentBox from "./../component/Comment";
 
 const Detail = (props) => {
+  const [isShowCommentForm, setSsShowCommentForm] = useState(false); // 是否展示评论表单
   const tocify = new Tocify();
   const renderer = new marked.Renderer();
 
@@ -78,6 +82,10 @@ const Detail = (props) => {
                 className="detailed-content"
                 dangerouslySetInnerHTML={{ __html: html }}
               ></div>
+              <div className="detail-comment">
+                <CopyOutlined />
+                <span className="comment-span">评论</span>
+              </div>
             </div>
           </div>
         </Col>
@@ -91,6 +99,12 @@ const Detail = (props) => {
             </div>
           </Affix>
         </Col>
+      </Row>
+      <Row type="flex" justify="center">
+        <Col xs={24} sm={16} lg={18} xl={14}>
+          <CommentBox isShowCommentForm={isShowCommentForm} />
+        </Col>
+        <Col className="comm-right" xs={0} sm={0} lg={5} xl={4}></Col>
       </Row>
       <Footer />
     </div>

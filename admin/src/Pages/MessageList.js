@@ -3,7 +3,8 @@ import { List, Row, Col, Modal, message, Button } from "antd";
 import axios from "axios";
 import servicePath from "./../config/api";
 import "../static/css/article.css";
-import moment from 'moment'
+// import moment from 'moment'
+import { formatTime } from "./../util/index";
 const { confirm } = Modal;
 
 function MessageList(props) {
@@ -74,7 +75,7 @@ function MessageList(props) {
               <Col span={4}>{item.nickname}</Col>
               <Col span={7}>{item.content}</Col>
               <Col span={6}>{item.email}</Col>
-              <Col span={4}>{moment(item.createTime).fromNow()}</Col>
+              <Col span={4}>{formatTime(item.createTime)}</Col>
               <Col span={3}>
                 <Button onClick={() => delArticle(item.id)}>删除</Button>
               </Col>

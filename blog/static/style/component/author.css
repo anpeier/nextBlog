@@ -14,3 +14,13 @@
   margin-left: 0.5rem;
   margin-right: 0.5rem;
 }
+.account:hover{
+  background-color: rgba(0, 0, 0, 0.671);
+  cursor: pointer;
+}
+.ant-popover-inner-content {
+  padding: 0;
+}
+.iconBox {
+  width:80px;
+}

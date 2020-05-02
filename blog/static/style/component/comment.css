@@ -1,0 +1,17 @@
+.Comment{
+  padding-top: 1em;
+}
+.comment-form{
+  padding: .5em 1em 0 1em;
+}
+.comment-input{
+  display: inline-block;
+  width: 45%;
+  margin-right: 1em;
+}
+.comment-btnGroup{
+  text-align: right;
+}
+.btn1{
+  margin-right: .5em;
+}
