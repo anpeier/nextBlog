@@ -127,12 +127,12 @@ const CommentBox = (props) => {
       {commentList.length ? (
         commentList.map((item) => (
           <Comment
-          className="comment-list"
+            className="comment-list"
             key={item.id}
             author={item.nickname}
             content={<p>{item.content}</p>}
             datetime={
-              <Tooltip title={moment().format("YYYY-MM-DD HH:mm:ss")}>
+              <Tooltip title={moment(item.createTime).format("YYYY-MM-DD HH:mm:ss")}>
                 <span>{moment(item.createTime).fromNow()}</span>
               </Tooltip>
             }
