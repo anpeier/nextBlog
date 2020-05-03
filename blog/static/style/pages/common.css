@@ -1,5 +1,7 @@
 body {
   background-color: #f6f6f6;
+  background: url(/static/images/bg.webp);
+  background-size: 100% 100%;
 }
 
 .comm-left {
@@ -19,22 +21,29 @@ body {
 
 .comm-main {
   margin-top: 0.5rem;
+  opacity: 0.8;
 }
 
-.list-title{
-    font-size:1.3rem;
-    color: #1e90ff;
-    padding: 0 0.5rem;
+.list-title {
+  font-size: 1.3rem;
+  color: #1e90ff;
+  padding: 0 0.5rem;
 }
-.list-context{
-    color:#777;
-    padding:.5rem;
+.list-context {
+  color: #777;
+  padding: 0.5rem;
 }
-.list-icon{
-    padding:.5rem 0;
-    color:#AAA;
+.list-icon {
+  padding: 0.5rem 0;
+  color: #aaa;
 }
-.list-icon span{
-    display: inline-block;
-    padding: 0 10px;
+.list-icon span {
+  display: inline-block;
+  padding: 0 10px;
+}
+.comment-list .ant-comment-content-author-name {
+  color: #999;
+}
+.hot{
+  color: red;
 }

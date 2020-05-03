@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
+import { withRouter } from "next/router";
 import Header from "./../component/Header";
 import Author from "./../component/Author";
 import Advent from "./../component/Advent";
@@ -51,7 +52,9 @@ const MyList = (list) => {
               <Breadcrumb.Item>
                 <a href="/">首页</a>
               </Breadcrumb.Item>
-              <Breadcrumb.Item>文章列表</Breadcrumb.Item>
+              <Breadcrumb.Item>
+                {list.router.query.id === "1" ? "文章列表" : "生活分享"}
+              </Breadcrumb.Item>
             </Breadcrumb>
           </div>
 
@@ -75,7 +78,10 @@ const MyList = (list) => {
                     <MenuUnfoldOutlined /> {item.category}
                   </span>
                   <span>
-                    <FireOutlined /> {item.view_count}
+                    <FireOutlined
+                      className={item.view_count > 100 ? "hot" : ""}
+                    />
+                    {item.view_count}
                   </span>
                 </div>
                 <div
@@ -101,7 +107,6 @@ MyList.getInitialProps = async (ctx) => {
   return new Promise((resolve, reject) => {
     axios(servicePath.getListById + id)
       .then((res) => {
-        console.log(res.data);
         resolve(res.data);
       })
       .catch((err) => {
@@ -110,4 +115,4 @@ MyList.getInitialProps = async (ctx) => {
   });
 };
 
-export default MyList;
+export default withRouter(MyList);

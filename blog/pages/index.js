@@ -63,7 +63,10 @@ const Home = (list) => {
                     <MenuUnfoldOutlined /> {item.category}
                   </span>
                   <span>
-                    <FireOutlined style={{ color: "red" }} /> {item.view_count}
+                    <FireOutlined
+                      className={item.view_count > 100 ? "hot" : ""}
+                    />
+                    {item.view_count}
                   </span>
                 </div>
                 <div

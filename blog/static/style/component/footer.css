@@ -4,3 +4,8 @@
   padding: 1rem;
   color: #888;
 }
+.footer-span{
+  font-size: 14px;
+  vertical-align: middle;
+  padding-left: .2em;
+}

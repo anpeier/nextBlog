@@ -75,7 +75,10 @@ const Detail = (props) => {
                   <MenuUnfoldOutlined /> {props.category}
                 </span>
                 <span>
-                  <FireOutlined /> {props.view_count}
+                  <FireOutlined
+                    className={props.view_count > 100 ? "hot" : ""}
+                  />
+                  {props.view_count}
                 </span>
               </div>
               <div

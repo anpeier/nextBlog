@@ -84,7 +84,7 @@ class HomeController extends Controller {
   async getComment() {
     let article_id = this.ctx.params.id;
     let sql =
-      "SELECT * FROM comment WHERE article_id=" +
+      "SELECT id,article_id,nickname,content,createTime FROM comment WHERE article_id=" +
       article_id +
       " ORDER BY createTime ASC";
     let data = await this.app.mysql.query(sql);
@@ -95,8 +95,8 @@ class HomeController extends Controller {
       }
     }
     this.ctx.body = {
-      data
-    }
+      data,
+    };
   }
 }
 

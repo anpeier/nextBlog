@@ -44,9 +44,7 @@ const CommentBox = (props) => {
       url: servicePath.getComment + props.article_id,
       method: "GET",
     }).then((data) => {
-      console.log(data)
       setCommentList(data.data.data);
-      console.log(commentList);
     });
   };
 
@@ -129,6 +127,7 @@ const CommentBox = (props) => {
       {commentList.length ? (
         commentList.map((item) => (
           <Comment
+          className="comment-list"
             key={item.id}
             author={item.nickname}
             content={<p>{item.content}</p>}
