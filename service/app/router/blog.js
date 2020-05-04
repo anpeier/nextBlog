@@ -5,4 +5,6 @@ module.exports = (app) => {
   router.get("/blog/getListById/:id", controller.blog.home.getListById);
   router.post("/blog/addComment", controller.blog.home.addComment);
   router.get("/blog/getComment/:id", controller.blog.home.getComment);
+  router.get("/blog/getFriends", controller.blog.home.getFriends);
+  router.post("/blog/addFriend", controller.blog.home.addFriend);
 };

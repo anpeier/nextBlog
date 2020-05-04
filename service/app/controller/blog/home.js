@@ -2,6 +2,7 @@
 
 const Controller = require("egg").Controller;
 const { html2Escape, escape2Html } = require("./../../../utils/index");
+const send = require("./../../../utils/sendEmail");
 
 class HomeController extends Controller {
   async getArticleList() {
@@ -86,7 +87,7 @@ class HomeController extends Controller {
     let sql =
       "SELECT id,article_id,nickname,content,createTime FROM comment WHERE article_id=" +
       article_id +
-      " ORDER BY createTime ASC";
+      " ORDER BY createTime DESC";
     let data = await this.app.mysql.query(sql);
     if (data.length) {
       for (const item of data) {
@@ -96,6 +97,28 @@ class HomeController extends Controller {
     }
     this.ctx.body = {
       data,
+    };
+  }
+
+  async getFriends() {
+    let sql =
+      "SELECT id,name,avatar,address,introduce FROM friends WHERE aggree=1" +
+      " ORDER BY createTime ASC";
+    const data = await this.app.mysql.query(sql);
+    this.ctx.body = {
+      data,
+    };
+  }
+
+  async addFriend() {
+    let friend = this.ctx.request.body;
+    let result = await this.app.mysql.insert("friends", friend);
+    const insertSuccess = result.affectedRows == 1;
+    if (insertSuccess) {
+      send();
+    }
+    this.ctx.body = {
+      insertSuccess,
     };
   }
 }

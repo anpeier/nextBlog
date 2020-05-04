@@ -4,7 +4,7 @@ import Link from "next/link";
 import Header from "./../component/Header";
 import Author from "./../component/Author";
 import Advent from "./../component/Advent";
-import Footer from "./../component/Footer";
+
 import axios from "axios";
 import { Row, Col, List } from "antd";
 import {
@@ -17,6 +17,7 @@ import servicePath from "./../config/api";
 import marked from "marked";
 import hljs from "highlight.js";
 import "highlight.js/styles/monokai-sublime.css";
+import Friends from "./../component/Friends";
 
 const Home = (list) => {
   const [myList, setMyList] = useState(list.data);
@@ -80,9 +81,9 @@ const Home = (list) => {
         <Col className="comm-right" xs={0} sm={0} lg={5} xl={4}>
           <Author />
           <Advent />
+          <Friends />
         </Col>
       </Row>
-      <Footer />
     </div>
   );
 };

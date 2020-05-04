@@ -6,6 +6,8 @@ let servicePath = {
   getListById: baseUrl + "getListById/", // 根据类别获取文章
   addComment: baseUrl + "addComment", // 新增评论
   getComment: baseUrl + "getComment/", // 获取评论列表
+  getFriends: baseUrl + "getFriends", // 获取友链列表
+  addFriend: baseUrl + "addFriend", // 新增友链
 };
 
 export default servicePath;

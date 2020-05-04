@@ -8,9 +8,13 @@ const Author = () => {
       <div>
         <Avatar size={100} src={"./../static/images/sj.jpg"}></Avatar>
         <div className="author-introduction">
-          大三学生
+          <span>大三学生</span>
           <Divider>社交账号</Divider>
-          <Popover content={<span className="git-span">https://github.com/anpeier</span>}>
+          <Popover
+            content={
+              <span className="author-span">https://github.com/anpeier</span>
+            }
+          >
             <a href="https://github.com/anpeier">
               <Avatar size={28} className="account git">
                 <GithubOutlined />

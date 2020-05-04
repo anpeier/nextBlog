@@ -1,0 +1,43 @@
+.fridents-box {
+  margin-left: 0.5rem;
+  background-color: #faffd1;
+  margin-bottom: 0.5em;
+  border-radius: 0.3rem;
+  height: 7.5rem;
+}
+.friends-name {
+  font-size: 1.2rem;
+  padding-left: 0.5rem;
+  padding-top: 0.8rem;
+  overflow: hidden;
+  display: inline-block;
+  width: 100px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.friends-introduce {
+  height: 3rem;
+  background: #ff4b2b;
+  -webkit-background-clip: text;
+  word-wrap: break-word;
+  overflow: hidden;
+  margin-left: 0.5rem;
+  font-size: 1rem;
+}
+.add-friends {
+  margin-left: 0.5rem;
+  border-radius: 0.3rem;
+  background-color: #999;
+  text-align: center;
+}
+
+.add-btn {
+  background-color: #999;
+  border: none;
+  color: aquamarine;
+}
+
+.add-btn:hover {
+  color: aqua;
+  background-color: #999;
+}

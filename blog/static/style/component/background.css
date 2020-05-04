@@ -4,4 +4,7 @@
   left: 0px;
   pointer-events: none;
 }
+#__next{
+  height: 100%;
+}
 

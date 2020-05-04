@@ -4,7 +4,6 @@ import { withRouter } from "next/router";
 import Header from "./../component/Header";
 import Author from "./../component/Author";
 import Advent from "./../component/Advent";
-import Footer from "./../component/Footer";
 import { Row, Col, List, Breadcrumb } from "antd";
 import {
   CalendarOutlined,
@@ -97,7 +96,6 @@ const MyList = (list) => {
           <Advent />
         </Col>
       </Row>
-      <Footer />
     </div>
   );
 };

@@ -4,12 +4,16 @@ import moment from "moment";
 import { useState, useEffect } from "react";
 
 const Footer = () => {
-  const startTime = new Date("2019/02/03 00:00:00");
-  const [time, setTime] = useState(moment.duration(new Date() - startTime)._data);
+  const startTime = new Date("2020/05/03 00:00:00");
+  const [time, setTime] = useState({});
   useEffect(() => {
-    setInterval(() => {
+    setTime(moment.duration(new Date() - startTime)._data); // 先执行一次，时间就不会显示undefined
+    let interval = setInterval(() => {
       setTime(moment.duration(new Date() - startTime)._data);
     }, 1000);
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
   return (
     <div className="footer-div">
@@ -19,10 +23,9 @@ const Footer = () => {
       </div>
       <div>
         <EyeFilled /> 总访问量
-        <span style={{ display: "none" }} id="busuanzi_value_site_pv"></span>次
-        &nbsp;|&nbsp;
+        <span id="busuanzi_value_site_pv"></span>次 &nbsp;|&nbsp;
         <TeamOutlined /> 访客数
-        <span style={{ display: "none" }} id="busuanzi_value_site_uv"></span>
+        <span id="busuanzi_value_site_uv"></span>
         人次
       </div>
       <div>

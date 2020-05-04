@@ -10,7 +10,6 @@ import {
 } from "@ant-design/icons";
 import Author from "./../component/Author";
 import Advent from "./../component/Advent";
-import Footer from "./../component/Footer";
 import "../static/style/pages/detail.css";
 import "markdown-navbar/dist/navbar.css";
 import axios from "axios";
@@ -118,7 +117,6 @@ const Detail = (props) => {
         </Col>
         <Col className="comm-right" xs={0} sm={0} lg={5} xl={4}></Col>
       </Row>
-      <Footer />
     </div>
   );
 };
