@@ -19,7 +19,6 @@ function FriendList() {
       url: servicePath.getFriendList,
       withCredentials: true,
     }).then((res) => {
-      console.log(res.data.data);
       setList(res.data.data);
     });
   };
@@ -27,21 +26,40 @@ function FriendList() {
   const delFriend = (id) => {
     console.log(id);
     confirm({
-      title: "删除留言",
-      content: "请确认是否删除该条留言",
+      title: "删除友链",
+      content: "请确认是否删除该条友链",
       onCancel() {
         message.info("删除取消");
       },
       onOk() {
         axios({
           method: "delete",
-          url: servicePath.delComment + id,
+          url: servicePath.delFriend + id,
           withCredentials: true,
         }).then(() => {
-          message.info("删除成功");
+          message.success("删除成功");
           getList();
         });
       },
+    });
+  };
+
+  const setOrCancleFriend = (id, aggree) => {
+    let data = {};
+    data.id = id;
+    data.aggree = aggree === 1 ? 0 : 1;
+    axios({
+      method: "put",
+      url: servicePath.putFriend,
+      withCredentials: true,
+      data,
+    }).then((data) => {
+      if (data.data.updateSuccess) {
+        message.success("修改成功");
+        getList();
+      } else {
+        message.error("修改失败");
+      }
     });
   };
 
@@ -85,7 +103,7 @@ function FriendList() {
               <Col span={4}>{item.email}</Col>
               <Col span={4}>{formatTime(item.createTime)}</Col>
               <Col span={4}>
-                <Button onClick={() => delFriend(item.id)}>
+                <Button onClick={() => setOrCancleFriend(item.id, item.aggree)}>
                   {item.aggree === 1 ? "取消" : "同意"}
                 </Button>
                 <Button onClick={() => delFriend(item.id)}>删除</Button>

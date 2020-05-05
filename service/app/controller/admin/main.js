@@ -145,6 +145,15 @@ class MainController extends Controller {
       data: res,
     };
   }
+
+  async putFriend() {
+    let friend = this.ctx.request.body;
+    const res = await this.app.mysql.update("friends", friend);
+    const updateSuccess = res.affectedRows == 1;
+    this.ctx.body = {
+      updateSuccess,
+    };
+  }
 }
 
 module.exports = MainController;

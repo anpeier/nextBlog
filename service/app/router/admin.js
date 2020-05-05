@@ -59,4 +59,6 @@ module.exports = (app) => {
     adminAuth,
     controller.admin.main.delFriend
   );
+
+  router.put("/admin/putFriend", adminAuth, controller.admin.main.putFriend);
 };

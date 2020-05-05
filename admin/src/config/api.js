@@ -15,6 +15,7 @@ let servicePath = {
   delComment: baseUrl + "delComment/", // 删除评论
   getFriendList: baseUrl + "getFriendList", // 获取友链列表
   delFriend: baseUrl + "delFriend/", // 删除友链
+  putFriend: baseUrl + "putFriend", // 修改友链状态
 };
 
 export default servicePath;

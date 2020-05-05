@@ -5,6 +5,8 @@ import {
   PieChartOutlined,
   UserOutlined,
   CommentOutlined,
+  ProfileOutlined,
+  SmileOutlined,
 } from "@ant-design/icons";
 import "./../static/css/index.css";
 import AddArticle from "./AddArticle";
@@ -76,6 +78,7 @@ function AdminIndex(props) {
             }
           >
             <Menu.Item key="ArticleList" onClick={handleClickArticle}>
+              <ProfileOutlined />
               文章列表
             </Menu.Item>
           </SubMenu>
@@ -84,7 +87,7 @@ function AdminIndex(props) {
             <span>留言管理</span>
           </Menu.Item>
           <Menu.Item key="friendList" onClick={handleClickArticle}>
-            <CommentOutlined />
+            <SmileOutlined />
             <span>友链管理</span>
           </Menu.Item>
         </Menu>
