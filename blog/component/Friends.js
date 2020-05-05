@@ -6,7 +6,7 @@ import { Avatar, Modal, Input, Form, message } from "antd";
 
 const Friends = () => {
   const [friendsList, setList] = useState([]);
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const [form] = Form.useForm();
   const handleOk = () => {
     form
@@ -63,6 +63,7 @@ const Friends = () => {
       {friendsList.map((item) => (
         <div className="fridents-box" key={item.id}>
           <Avatar
+          className="friend-avatar"
             size={64}
             src={
               item.avatar

@@ -28,3 +28,19 @@
   padding: 0 .5em 0 .5em;
   color: #999;
 }
+.author-name{
+  font-size: 14px;
+  color: rgba(136, 135, 222, 0.733);
+  font-weight: bold;
+  margin-top: .2rem;
+}
+.tag{
+  margin-bottom: 5px;
+  box-sizing: border-box;
+}
+.tags{
+  height: 53px;
+}
+.description{
+  
+}

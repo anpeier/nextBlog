@@ -1,4 +1,4 @@
-import { Avatar, Divider, Popover } from "antd";
+import { Avatar, Divider, Popover, Tag } from "antd";
 import { GithubOutlined, QqOutlined, WechatOutlined } from "@ant-design/icons";
 import "./../static/style/component/author.css";
 
@@ -8,7 +8,15 @@ const Author = () => {
       <div>
         <Avatar size={100} src={"./../static/images/sj.jpg"}></Avatar>
         <div className="author-introduction">
-          <span>大三学生</span>
+          <div className="author-name">安培儿</div>
+          <div className="tags">
+            <Tag className="tag" color="magenta">大三学生</Tag>
+            <Tag className="tag" color="red">菜鸟</Tag>
+            <Tag className="tag" color="volcano">学习ing...</Tag>
+            <Tag className="tag" color="orange">前端大白</Tag>
+            <Tag className="tag" color="gold">头发茂盛</Tag>
+          </div>
+          <span className="description">一个想做全栈工程师的准程序员</span>
           <Divider>社交账号</Divider>
           <Popover
             content={

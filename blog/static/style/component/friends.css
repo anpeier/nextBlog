@@ -21,7 +21,7 @@
   -webkit-background-clip: text;
   word-wrap: break-word;
   overflow: hidden;
-  margin-left: 0.5rem;
+  margin-left: 0.8rem;
   font-size: 1rem;
 }
 .add-friends {
@@ -43,4 +43,8 @@
 .add-btn:hover {
   color: aqua;
   background-color: #999;
+}
+
+.friend-avatar{
+  margin-left: .5rem;
 }
