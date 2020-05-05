@@ -37,8 +37,26 @@ module.exports = (app) => {
   );
 
   router.get(
-    "/admin/getMessageList",
+    "/admin/getCommentList",
     adminAuth,
-    controller.admin.main.getMessageList
+    controller.admin.main.getCommentList
+  );
+
+  router.delete(
+    "/admin/delComment/:id",
+    adminAuth,
+    controller.admin.main.delComment
+  );
+
+  router.get(
+    "/admin/getFriendList",
+    adminAuth,
+    controller.admin.main.getFriendList
+  );
+
+  router.delete(
+    "/admin/delFriend/:id",
+    adminAuth,
+    controller.admin.main.delFriend
   );
 };

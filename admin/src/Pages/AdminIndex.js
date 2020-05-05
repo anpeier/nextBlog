@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Route } from "react-router-dom";
 import { Layout, Menu, Breadcrumb } from "antd";
 import {
@@ -9,13 +9,36 @@ import {
 import "./../static/css/index.css";
 import AddArticle from "./AddArticle";
 import ArticleList from "./ArticleList";
-import MessageList from "./MessageList";
+import CommentList from "./CommentList";
+import FriendList from "./FriendList";
 
 const { Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
 function AdminIndex(props) {
   const [collapsed, setCollapsed] = useState(false);
+  const [title, setTitle] = useState("");
+  let url = props.location.pathname;
+  useEffect(() => {
+    switch (url) {
+      case "/add":
+        setTitle("添加文章");
+        break;
+      case "/list":
+        setTitle("文章列表");
+        break;
+      case "/commentList":
+        setTitle("留言管理");
+        break;
+      case "/friendList":
+        setTitle("友链管理");
+        break;
+      default:
+        setTitle("首页");
+        break;
+    }
+  }, [url]);
+
   let onCollapse = () => {
     setCollapsed(!collapsed);
   };
@@ -25,8 +48,10 @@ function AdminIndex(props) {
       props.history.push("/add");
     } else if (e.key === "ArticleList") {
       props.history.push("/list");
-    }else if(e.key === 'messageList'){
-      props.history.push("/messageList");
+    } else if (e.key === "commentList") {
+      props.history.push("/commentList");
+    } else if (e.key === "friendList") {
+      props.history.push("/friendList");
     }
   };
 
@@ -50,13 +75,17 @@ function AdminIndex(props) {
               </span>
             }
           >
-            <Menu.Item onClick={handleClickArticle} key="ArticleList">
+            <Menu.Item key="ArticleList" onClick={handleClickArticle}>
               文章列表
             </Menu.Item>
           </SubMenu>
-          <Menu.Item key="messageList" onClick={handleClickArticle}>
+          <Menu.Item key="commentList" onClick={handleClickArticle}>
             <CommentOutlined />
             <span>留言管理</span>
+          </Menu.Item>
+          <Menu.Item key="friendList" onClick={handleClickArticle}>
+            <CommentOutlined />
+            <span>友链管理</span>
           </Menu.Item>
         </Menu>
       </Sider>
@@ -64,7 +93,7 @@ function AdminIndex(props) {
         <Content style={{ margin: "0 16px" }}>
           <Breadcrumb style={{ margin: "16px 0" }}>
             <Breadcrumb.Item>后台管理系统</Breadcrumb.Item>
-            <Breadcrumb.Item>添加文章</Breadcrumb.Item>
+            <Breadcrumb.Item>{title}</Breadcrumb.Item>
           </Breadcrumb>
           <div
             className="site-layout-background"
@@ -75,7 +104,8 @@ function AdminIndex(props) {
               <Route path="/add/" exact component={AddArticle} />
               <Route path="/add/:id" exact component={AddArticle} />
               <Route path="/list/" exact component={ArticleList} />
-              <Route path="/messageList/" exact component={MessageList} />
+              <Route path="/commentList/" exact component={CommentList} />
+              <Route path="/friendList/" exact component={FriendList} />
             </div>
           </div>
         </Content>

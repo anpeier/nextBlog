@@ -3,11 +3,11 @@ import { List, Row, Col, Modal, message, Button } from "antd";
 import axios from "axios";
 import servicePath from "./../config/api";
 import "../static/css/article.css";
-// import moment from 'moment'
+import "../static/css/common.css";
 import { formatTime } from "./../util/index";
 const { confirm } = Modal;
 
-function MessageList(props) {
+function CommentList() {
   const [list, setList] = useState([]);
   useEffect(() => {
     getList();
@@ -16,7 +16,7 @@ function MessageList(props) {
   const getList = () => {
     axios({
       method: "get",
-      url: servicePath.getMessageList,
+      url: servicePath.getCommentList,
       withCredentials: true,
     }).then((res) => {
       setList(res.data.data);
@@ -34,9 +34,9 @@ function MessageList(props) {
       onOk() {
         axios({
           method: "delete",
-          url: servicePath.delMessage + id,
+          url: servicePath.delComment + id,
           withCredentials: true,
-        }).then((res) => {
+        }).then(() => {
           message.info("删除成功");
           getList();
         });
@@ -73,7 +73,9 @@ function MessageList(props) {
           <List.Item>
             <Row className="list-div">
               <Col span={4}>{item.nickname}</Col>
-              <Col span={7}>{item.content}</Col>
+              <Col className="tooLong" span={7}>
+                {item.content}
+              </Col>
               <Col span={6}>{item.email}</Col>
               <Col span={4}>{formatTime(item.createTime)}</Col>
               <Col span={3}>
@@ -87,4 +89,4 @@ function MessageList(props) {
   );
 }
 
-export default MessageList;
+export default CommentList;

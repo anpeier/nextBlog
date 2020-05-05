@@ -2,40 +2,49 @@ import { useState, useEffect } from "react";
 import "./../static/style/component/friends.css";
 import servicePath from "./../config/api";
 import axios from "axios";
-import { Avatar, Button, Modal, Input, Form, message } from "antd";
+import { Avatar, Modal, Input, Form, message } from "antd";
 
 const Friends = () => {
   const [friendsList, setList] = useState([]);
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(true);
   const [form] = Form.useForm();
   const handleOk = () => {
     form
       .validateFields()
       .then(() => {
-        console.log(form.getFieldsValue());
-        let obj = form.getFieldsValue();
-        let friends = {};
-        friends.name = obj.nickname;
-        friends.avatar = obj.avatar;
-        friends.address = obj.address;
-        friends.introduce = obj.introduce;
-        friends.email = obj.email;
         axios({
-          url: servicePath.addFriend,
-          method: "POST",
-          data: friends,
-        }).then((data) => {
-          if (data.data.insertSuccess) {
-            message.success("提交成功，请等候站主同意");
-            setShowModal(false);
-            form.resetFields();
-          } else {
-            message.error("提交失败，请重试");
-          }
-        });
+          url: form.getFieldsValue().avatar,
+          method: "GET",
+        })
+          .then(() => {
+            let obj = form.getFieldsValue();
+            let friends = {};
+            friends.name = obj.nickname;
+            friends.avatar = obj.avatar;
+            friends.address = obj.address;
+            friends.introduce = obj.introduce;
+            friends.email = obj.email;
+            axios({
+              url: servicePath.addFriend,
+              method: "POST",
+              data: friends,
+            }).then((data) => {
+              if (data.data.insertSuccess) {
+                message.success("提交成功，请等候站主同意");
+                setShowModal(false);
+                form.resetFields();
+              } else {
+                message.error("提交失败，请重试");
+              }
+            });
+          })
+          .catch(() => {
+            message.error("请输入正确的头像地址");
+            return;
+          });
       })
       .catch((err) => {
-        console.log(err);
+        message.error(err);
       });
   };
   useEffect(() => {
@@ -43,7 +52,6 @@ const Friends = () => {
   }, []);
   const getFriends = () => {
     axios(servicePath.getFriends).then((data) => {
-      console.log(data.data.data);
       setList(data.data.data);
     });
   };
@@ -79,9 +87,9 @@ const Friends = () => {
         </div>
       ))}
       <div className="add-friends">
-        <Button className="add-btn" onClick={() => setShowModal(true)}>
+        <button className="add-btn" onClick={() => setShowModal(true)}>
           申请友链
-        </Button>
+        </button>
       </div>
       <Modal
         title="新增友链"

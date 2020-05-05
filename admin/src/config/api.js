@@ -11,8 +11,10 @@ let servicePath = {
   delArticle: baseUrl + "delArticle/", // 删除文章
   getArticleById: baseUrl + "getArticleById/", // 通过id获取文章
   upload: baseUrl + "upload", // 上传图片
-  getMessageList: baseUrl + "getMessageList", // 获取留言列表
-  delMessage: baseUrl + "delMessage/", // 删除文章
+  getCommentList: baseUrl + "getCommentList", // 获取留言列表
+  delComment: baseUrl + "delComment/", // 删除评论
+  getFriendList: baseUrl + "getFriendList", // 获取友链列表
+  delFriend: baseUrl + "delFriend/", // 删除友链
 };
 
 export default servicePath;

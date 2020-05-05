@@ -120,9 +120,30 @@ class MainController extends Controller {
     this.ctx.body = { data: result };
   }
 
-  async getMessageList() {
-    const results = await this.app.mysql.select("message");
+  async getCommentList() {
+    const results = await this.app.mysql.select("comment");
     this.ctx.body = { data: results };
+  }
+
+  async delComment() {
+    let id = this.ctx.params.id;
+    const res = await this.app.mysql.delete("comment", { id });
+    this.ctx.body = {
+      data: res,
+    };
+  }
+
+  async getFriendList() {
+    const results = await this.app.mysql.select("friends");
+    this.ctx.body = { data: results };
+  }
+
+  async delFriend() {
+    let id = this.ctx.params.id;
+    const res = await this.app.mysql.delete("friends", { id });
+    this.ctx.body = {
+      data: res,
+    };
   }
 }
 
