@@ -4,7 +4,7 @@ const path = require("path");
 const fs = require("mz/fs");
 const qiniu = require("qiniu");
 const bucket = "lapsj-imgs"; //要上传的空间名
-const imageUrl = "http://q98zck26y.bkt.clouddn.com/"; // 空间绑定的域名
+const imageUrl = "https://cdn.lapsj.cn/"; // 空间绑定的域名
 const accessKey = "3_ltgskhqXQHbroIA6-BsmoWpx8SgO79kbC6rZy_"; //Access Key
 const secretKey = "3cUoV3ZAsTcnfjrw1iFhA1Lhdl1TvTfI640EehYg"; //Secret Key
 const mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
@@ -20,6 +20,7 @@ class UploaderController extends Controller {
   async upload() {
     const { ctx } = this;
     const stream = await ctx.getFileStream();
+    console.log(stream)
     const filename = Date.now() + stream.filename;
     const savePath = path.join(this.config.baseDir, `images/${filename}`);
     // 创建文件写入流

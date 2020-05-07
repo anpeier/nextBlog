@@ -11,7 +11,6 @@ import {
 import Author from "./../component/Author";
 import Advent from "./../component/Advent";
 import "../static/style/pages/detail.css";
-import "markdown-navbar/dist/navbar.css";
 import axios from "axios";
 import marked from "marked";
 import hljs from "highlight.js";

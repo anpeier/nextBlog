@@ -4,7 +4,7 @@ import Link from "next/link";
 import Header from "./../component/Header";
 import Author from "./../component/Author";
 import Advent from "./../component/Advent";
-
+import { withRouter } from "next/router";
 import axios from "axios";
 import { Row, Col, List } from "antd";
 import {
@@ -100,4 +100,4 @@ Home.getInitialProps = async () => {
   });
 };
 
-export default Home;
+export default withRouter(Home);

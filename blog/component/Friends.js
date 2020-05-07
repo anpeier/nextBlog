@@ -12,37 +12,28 @@ const Friends = () => {
     form
       .validateFields()
       .then(() => {
+        let obj = form.getFieldsValue();
+        let friends = {};
+        friends.name = obj.nickname;
+        friends.avatar = obj.avatar;
+        friends.address = obj.address;
+        friends.introduce = obj.introduce;
+        friends.email = obj.email;
         axios({
-          url: form.getFieldsValue().avatar,
-          method: "GET",
-        })
-          .then(() => {
-            let obj = form.getFieldsValue();
-            let friends = {};
-            friends.name = obj.nickname;
-            friends.avatar = obj.avatar;
-            friends.address = obj.address;
-            friends.introduce = obj.introduce;
-            friends.email = obj.email;
-            axios({
-              url: servicePath.addFriend,
-              method: "POST",
-              data: friends,
-            }).then((data) => {
-              if (data.data.insertSuccess) {
-                message.success("提交成功，请等候站主同意");
-                setShowModal(false);
-                form.resetFields();
-              } else {
-                message.error("提交失败，请重试");
-              }
-            });
-          })
-          .catch(() => {
-            message.error("请输入正确的头像地址");
-            return;
-          });
+          url: servicePath.addFriend,
+          method: "POST",
+          data: friends,
+        }).then((data) => {
+          if (data.data.insertSuccess) {
+            message.success("提交成功，请等候站主同意");
+            setShowModal(false);
+            form.resetFields();
+          } else {
+            message.error("提交失败，请重试");
+          }
+        });
       })
+
       .catch((err) => {
         message.error(err);
       });
@@ -63,7 +54,7 @@ const Friends = () => {
       {friendsList.map((item) => (
         <div className="fridents-box" key={item.id}>
           <Avatar
-          className="friend-avatar"
+            className="friend-avatar"
             size={64}
             src={
               item.avatar
